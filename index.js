@@ -3,9 +3,9 @@ import dotenv from 'dotenv';
 import connectDB from './config/database.js';
 import userRouter from './routes/user.routes.js';
 import taskRouter from './routes/task.routes.js';
-import config from './config/config.js';  
+import config from './config/config.js'; 
 
-// dotenv.config();
+dotenv.config();
 
 const app = express();
 app.use(express.json());
