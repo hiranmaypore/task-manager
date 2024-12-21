@@ -1,16 +1,15 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import config from '../config';
-import User from '../model/user.model';
-
+import config from '../config/config.js'; // Ensure this path is correct
+import User from '../model/user.model.js';
 
 const router = express.Router();
 
 router.post('/register', async (req, res) => {
     try {
         const { username, password, email } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 8);
+        const hashedPassword = await bcrypt.hash(password, 10);
         
         const user = new User({
             username,
@@ -20,12 +19,7 @@ router.post('/register', async (req, res) => {
         
         await user.save();
         
-        const token = jwt.sign(
-            { userId: user._id }, 
-            config.jwt.secret, 
-            { expiresIn: config.jwt.expiresIn }
-        );
-        res.status(201).send({ user, token });
+        res.status(201).send(user);
     } catch (error) {
         res.status(400).send(error);
     }
@@ -57,4 +51,4 @@ router.post('/login', async (req, res) => {
     }
 });
 
-export const userRouter = router;
+export default router;

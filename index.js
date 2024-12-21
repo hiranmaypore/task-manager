@@ -1,9 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import connectDB from './config/database.js';
-import userRouter from './routes/user.routes.js';
-import taskRouter from './routes/task.routes.js';
-import config from './config/config.js'; 
+import connectDB from './src/config/database.js';
+import userRouter from './src/controller/user.controller.js';
+import taskRouter from './src/controller/task.controller.js';
+import config from './src/config/config.js';
 
 dotenv.config();
 
@@ -17,7 +17,6 @@ connectDB();
 app.use('/users', userRouter);
 app.use('/tasks', taskRouter);
 
-
 app.listen(config.PORT, () => {
-  console.log(`Server is running on port ${config.port} in ${config.env} mode`);
+  console.log(`Server is running on port ${config.PORT} in ${config.env} mode`);
 });
